@@ -1,3 +1,4 @@
+import axios from 'axios';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
@@ -60,32 +61,57 @@ const getUserDocument = async uid => {
   }
 };
 
-export const addDocumentToSign = async (uid, email, docRef, emails) => {
+export const addDocumentToSign = async (uid, email, assignees, arr) => {
   if (!uid) return;
   const signed = false;
   const xfdf = [];
   const signedBy = [];
   const requestedTime = new Date();
   const signedTime = '';
-  firestore
-    .collection('documentsToSign')
-    .add({
-      uid,
-      email,
-      docRef,
-      emails,
-      xfdf,
-      signedBy,
-      signed,
-      requestedTime,
-      signedTime,
-    })
-    .then(function (docRef) {
-      console.log('Document written with ID: ', docRef.id);
-    })
-    .catch(function (error) {
-      console.error('Error adding document: ', error);
-    });
+  const json = {
+    //   "receivers": [
+    //     {
+    //       "name": "Vu2",
+    //       "email": "rrfpb.vu2@inbox.testmail.app",
+    //       "permission": "string",
+    //       "key": "string",
+    //       "private_message": "string"
+    //     }
+    //   ],
+    //   "files": [
+    //     {
+    //       "name": "1.pdf",
+    //       "data": arr
+    //     }
+    //   ],
+    //   "mail_title": "string",
+    //   "mail_message": "string"
+    // }
+    // try {
+    //   await DocumentApi.postSigning(json);
+    // } catch (error) {
+    //   console.log("error add document " + error);
+    // }
+    // // firestore
+    //   .collection('documentsToSign')
+    //   .add({
+    //     uid,
+    //     email,
+    //     docRef,
+    //     emails,
+    //     xfdf,
+    //     signedBy,
+    //     signed,
+    //     requestedTime,
+    //     signedTime,
+    //   })
+    //   .then(function (docRef) {
+    //     console.log('Document written with ID: ', docRef.id);
+    //   })
+    //   .catch(function (error) {
+    //     console.error('Error adding document: ', error);
+    //   });
+  }
 };
 
 export const updateDocumentToSign = async (docId, email, xfdfSigned) => {

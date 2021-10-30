@@ -15,8 +15,9 @@ const SignDocument = () => {
 
   const doc = useSelector(selectDocToSign);
   const user = useSelector(selectUser);
-  const { docRef, docId } = doc;
-  const { email } = user;
+  // const { docRef, docId } = doc;
+  // const { email } = user;
+  const email = 'rrfpb.tuan2@inbox.testmail.app';
 
   const viewer = useRef(null);
 
@@ -48,7 +49,7 @@ const SignDocument = () => {
 
       // load document
       const storageRef = storage.ref();
-      const URL = await storageRef.child(docRef).getDownloadURL();
+      const URL = 'https://vtsign.blob.core.windows.net/document-dev/263b7c81-415f-478c-a1e4-d7af58b66cfd-Hop_dong_thue_nha_3.pdf';//await storageRef.child(docRef).getDownloadURL();
       docViewer.loadDocument(URL);
 
       const normalStyles = (widget) => {
@@ -78,7 +79,7 @@ const SignDocument = () => {
         }
       });
     });
-  }, [docRef, email]);
+  }, []);
 
   const nextField = () => {
     let annots = annotManager.getAnnotationsList();
@@ -102,7 +103,7 @@ const SignDocument = () => {
 
   const completeSigning = async () => {
     const xfdf = await annotManager.exportAnnotations({ widgets: false, links: false });
-    await updateDocumentToSign(docId, email, xfdf);
+    // await updateDocumentToSign(docId, email, xfdf);
     navigate('/');
   }
 
