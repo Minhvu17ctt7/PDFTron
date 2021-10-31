@@ -5,6 +5,7 @@ import WebViewer from '@pdftron/webviewer';
 import 'gestalt/dist/gestalt.css';
 import './SignDocument.css';
 import documentApi from '../../api/documentApi';
+import { mergeAnnotations } from '../MergeAnnotations/MergeAnnotations';
 
 const SignDocument = () => {
     const [annotManager, setAnnotatManager] = useState(null);
@@ -14,6 +15,7 @@ const SignDocument = () => {
 
     const [userDocument, setUserDocument] = useState({});
     const [signedObj, setSignedObj] = useState({});
+    const [link, setLink] = useState('');
 
     const viewer = useRef(null);
 
@@ -49,7 +51,7 @@ const SignDocument = () => {
                     contract_uuid: c,
                     user_uuid: r,
                 }));
-                
+
                 const { docViewer, annotManager, Annotations } = instance;
                 setAnnotatManager(annotManager);
 
@@ -131,24 +133,43 @@ const SignDocument = () => {
             widgets: false,
             links: false,
         });
-        
+
         const document_xfdf = {
             xfdf,
             document_uuid: userDocument.documents[0].id,
+        };
+
+        const files = [];
+        if (userDocument.last_sign) {
+            const listXfdfs = userDocument.documents[0].xfdfs.map(
+                (x) => x.xfdf
+            );
+            listXfdfs.push(xfdf);
+
+            const blob = await mergeAnnotations(
+                userDocument.documents[0].url,
+                listXfdfs
+            );
+            files.push(new File([blob], userDocument.documents[0].id));
+
+            const url = window.URL.createObjectURL(blob);
+            setLink(url);
         }
 
-        documentApi.signByReceiver({
-            ...signedObj,
-            document_xfdfs: [document_xfdf]
-        });
-                
+        documentApi.signByReceiver(
+            {
+                ...signedObj,
+                document_xfdfs: [document_xfdf],
+            },
+            files
+        );
 
-        // await updateDocumentToSign(docId, email, xfdf);
-        navigate('/');
+        // navigate('/');
     };
 
     return (
         <div className={'prepareDocument'}>
+            {link && <a href={link}>Download file</a>}
             <Box display="flex" direction="row" flex="grow">
                 <Column span={2}>
                     <Box padding={3}>

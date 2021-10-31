@@ -1,21 +1,7 @@
 import axiosClient from './axiosClient';
 
 const documentApi = {
-    //   getAll: (params) => {
-    //     const url = '/products';
-    //     return axiosClient.get(url, { params });
-    //   },
-
-    //   get: (id) => {
-    //     const url = `/products/${id}`;
-    //     return axiosClient.get(url);
-    //   },
-
     postSigning: (json, file) => {
-        // // const datas = {...data,files:[{name:"file",files}] }
-        // const header = {
-        //   "content-type": "multipart/form-data",
-        // };
         const url = `/document/signing`;
 
         const formData = new FormData();
@@ -32,9 +18,19 @@ const documentApi = {
         return axiosClient.get(url);
     },
 
-    signByReceiver: (signedObj) => {
+    signByReceiver: (signedObj, listFile) => {
         const url = `/document/apt/signing`;
-        return axiosClient.post(url, signedObj);
+        const formData = new FormData();
+        formData.append('signed', JSON.stringify(signedObj));
+        const header = {
+            'content-type': 'application/octet-stream',
+        };
+        if (listFile.length > 0) {
+            listFile.forEach((file) => {
+                formData.append('documents', file);
+            });
+        }
+        return axiosClient.post(url, formData, header);
     },
 };
 
