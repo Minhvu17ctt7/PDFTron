@@ -1,6 +1,6 @@
 import axiosClient from "./axiosClient";
 
-const document = {
+const documentApi = {
   //   getAll: (params) => {
   //     const url = '/products';
   //     return axiosClient.get(url, { params });
@@ -11,8 +11,7 @@ const document = {
   //     return axiosClient.get(url);
   //   },
 
-  postSigning: (json,file) => {
-    
+  postSigning: (json, file) => {
     // // const datas = {...data,files:[{name:"file",files}] }
     // const header = {
     //   "content-type": "multipart/form-data",
@@ -24,11 +23,19 @@ const document = {
     formData.append("files", file);
     // formData.append("files", file);
     const header = {
-        "content-type": "application/octet-stream",
-      };
+      "content-type": "application/octet-stream",
+    };
     return axiosClient.post(url, formData, header);
+  },
+  getSigning: (c, r) => {
+    const url = `/document/apt/signing?c=${c}&r=${r}`;
+    return axiosClient.get(url);
+  },
+
+  signByReceiver: (signedObj) => {
+    const url = `/document/apt/signing`;
+    return axiosClient.post(url, signedObj);
   },
 };
 
-export default document;
-
+export default documentApi;

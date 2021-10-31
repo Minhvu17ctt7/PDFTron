@@ -1,28 +1,28 @@
-import React, { useEffect } from 'react';
-import { Router } from '@reach/router';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useEffect } from "react";
+import { Router } from "@reach/router";
+import { useSelector, useDispatch } from "react-redux";
 
-import AssignUsers from './components/AssignUsers';
-import SignIn from './components/SignIn/SignIn';
-import SignUp from './components/SignUp/SignUp';
-import Preparation from './components/Preparation';
-import Sign from './components/Sign';
-import View from './components/View';
-import Header from './components/Header';
-import PasswordReset from './components/PasswordReset/PasswordReset';
-import Welcome from './components/Welcome';
+import AssignUsers from "./components/AssignUsers";
+import SignIn from "./components/SignIn/SignIn";
+import SignUp from "./components/SignUp/SignUp";
+import Preparation from "./components/Preparation";
+import Sign from "./components/Sign";
+import View from "./components/View";
+import Header from "./components/Header";
+import PasswordReset from "./components/PasswordReset/PasswordReset";
+import Welcome from "./components/Welcome";
 
-import { auth, generateUserDocument } from './firebase/firebase';
-import { setUser, selectUser } from './firebase/firebaseSlice';
+import { auth, generateUserDocument } from "./firebase/firebase";
+import { setUser, selectUser } from "./firebase/firebaseSlice";
 
-import './App.css';
+import "./App.css";
 
 const App = () => {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    auth.onAuthStateChanged(async userAuth => {
+    auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
         const user = await generateUserDocument(userAuth);
         const { uid, displayName, email, photoURL } = user;

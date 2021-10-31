@@ -43,7 +43,7 @@ const axiosClient = axios.create({
 });
 
 axiosClient.interceptors.request.use(async (config) => {
-  const token = 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJycmZwYi5udHQxMEBpbmJveC50ZXN0bWFpbC5hcHAiLCJqdGkiOiIzZjNjOTM0Mi1jNmNkLTQyNGEtYTFjYi01OTJhMGUwOWU1NDgiLCJpc3MiOiJodHRwczovL3Z0c2lnbi50ZWNoLyIsImlhdCI6MTYzNTU2MDQ5MywiZXhwIjoxNjM1NjQ2ODkzfQ._xkUWXTGbMsiHYy5jbsfLDCx5vA8SvRTDmOmq7ErsJAo7dOdqRVw5NIpJgfXytn2DOs4AKtsMR-zjW7cQInskA';//await getFirebaseToken();
+  const token = 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJycmZwYi50aG90dWFuQGluYm94LnRlc3RtYWlsLmFwcCIsImp0aSI6ImY5MDczYzFmLWViZjMtNDUzYS05ZDI3LTkzYzRiYWUyY2IwNSIsImlzcyI6Imh0dHBzOi8vdnRzaWduLnRlY2gvIiwiaWF0IjoxNjM1NjUwMzMyLCJleHAiOjE2MzU3MzY3MzJ9.ATa885fGKP1VxvDPqOaTGa46LdC70c0TqYDXMbaWLhNmjkpjzBmZMBkY4DzuDhuj8roYWc4KxSb-EJY0Hbg3Vw';//await getFirebaseToken();
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
