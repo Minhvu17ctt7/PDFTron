@@ -129,10 +129,7 @@ const SignDocument = () => {
     };
 
     const completeSigning = async () => {
-        const xfdf = await annotManager.exportAnnotations({
-            widgets: false,
-            links: false,
-        });
+        const xfdf = await annotManager.exportAnnotations();
 
         const document_xfdf = {
             xfdf,
@@ -164,7 +161,7 @@ const SignDocument = () => {
             files
         );
 
-        // navigate('/');
+        navigate('/');
     };
 
     return (

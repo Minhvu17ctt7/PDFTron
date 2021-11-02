@@ -135,7 +135,6 @@ const PrepareDocument = () => {
                             annot.getContents() + Date.now() + index,
                             {
                                 type: 'Tx',
-                                value: 'm-d-yyyy',
                                 // Actions need to be added for DatePickerWidgetAnnotation to recognize this field.
                                 actions: {
                                     F: [
