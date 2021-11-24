@@ -13,8 +13,8 @@ const documentApi = {
         };
         return axiosClient.post(url, formData, header);
     },
-    getSigning: (c, r) => {
-        const url = `/document/apt/signing?c=${c}&r=${r}`;
+    getSigning: (c, r, s) => {
+        const url = `/document/apt/signing?c=${c}&r=${r}&s=${s}`;
         return axiosClient.get(url);
     },
 

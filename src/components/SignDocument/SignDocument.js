@@ -42,9 +42,10 @@ const SignDocument = () => {
             const queryParam = new URLSearchParams(location.search);
             const r = queryParam.get('r');
             const c = queryParam.get('c');
+            const s = queryParam.get('s');
 
             try {
-                const response = await documentApi.getSigning(c, r);
+                const response = await documentApi.getSigning(c, r, s);
                 setUserDocument(response);
                 setSignedObj((prevState) => ({
                     ...prevState,
@@ -59,7 +60,8 @@ const SignDocument = () => {
                 instance.setToolbarGroup('toolbarGroup-Insert');
 
                 // load document
-                const URL = response.documents[0].url; //await storageRef.child(docRef).getDownloadURL();
+                const URL = "https://vtsign.blob.core.windows.net/document/946d6a9a-1bda-4c42-b3d7-bfbafec918e0-hopdong.pdf";
+                // const URL = response.documents[0].url;
                 docViewer.loadDocument(URL);
 
                 const normalStyles = (widget) => {
@@ -88,14 +90,14 @@ const SignDocument = () => {
                                 ) {
                                     Annotations.WidgetAnnotation.getCustomStyles =
                                         normalStyles;
-                                    if (
-                                        !annot.fieldName.startsWith(
-                                            response.user.email
-                                        )
-                                    ) {
+                                    // if (
+                                    //     !annot.fieldName.startsWith(
+                                    //         response.user.email
+                                    //     )
+                                    // ) {
                                         annot.Hidden = true;
                                         annot.Listable = false;
-                                    }
+                                    // }
                                 }
                             });
                         }
